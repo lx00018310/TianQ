@@ -127,6 +127,16 @@
   .mode{border:.5px solid var(--line);background:linear-gradient(180deg,#FCFDFE,#F8FAFC);border-radius:4px;padding:1.32vw;box-shadow:var(--shadow2)}
   .mode .num{font-size:.82vw;color:#64748B;font-family:"JetBrains Mono","Consolas",monospace}.mode h3{font-size:1.32vw;margin:.7vh 0}.mode p{font-size:.9vw}
   .bigEyeWrap{position:absolute;right:5%;top:10%;width:46%;height:75%}.bigEyeWrap .eye{position:absolute;right:3%;top:20%;width:31vw;height:16.5vw}.bigEyeWrap .halo{right:-5vw;top:-4vw;width:40vw;height:40vw}
+  .introSlide{padding:0;text-align:center;container-type:inline-size}
+  .introSlide>.eyebrow{position:absolute;top:7%;left:5%;right:5%;margin:0;font-size:1.05cqw}
+  .introSlide>.eye{left:50%;right:auto;top:33.333%;width:42%;height:40%;transform:translate(-50%,-50%)}
+  .introSlide>.halo{left:50%;right:auto;top:33.333%;width:45%;height:auto;aspect-ratio:1;transform:translate(-50%,-50%);opacity:.35}
+  .introText{position:absolute;top:56%;left:5%;right:5%}
+  .introText h1{font-size:4.6cqw}
+  .introText .sub{margin-top:.65cqw;font-size:1.65cqw;font-weight:700}
+  .introText p{margin-top:.5cqw;font-size:1.12cqw}
+  .introText .bigquote{max-width:none;margin-top:1.2cqw;font-size:2.2cqw;line-height:1.3}
+  .introSlide .brandbar{justify-content:center;gap:1.5cqw;font-size:.85cqw}
   .notes{font-size:.82vw;color:#64748B;margin-top:1.2vh}
   .controls{position:fixed;right:2.2vw;bottom:2vh;display:flex;gap:.55vw;z-index:50}
   .controls button{border:.5px solid var(--line);background:#FFFFFF;color:#334155;border-radius:0;padding:.65em .9em;cursor:pointer;font-family:"JetBrains Mono","Consolas",monospace;box-shadow:var(--shadow2)}
@@ -223,14 +233,16 @@
   <img class="coverImage" src="Imag_TianQ.png" alt="EmergentInc Universe · 千机阁 TianQ 项目概念图" />
 </section>
 
-<section class="slide">
+<section class="slide introSlide">
   <div class="noise"></div><div class="halo"></div>
   <div class="eyebrow">QIANJI SERIES · MARKET INTELLIGENCE</div>
-  <h1>天目 <span class="cyan">TianQ</span></h1>
-  <div class="sub" style="margin-top:2vh;font-size:1.72vw;font-weight:700">千机阁 · 天机演化之目</div>
-  <p style="margin-top:2.2vh;max-width:48%;font-size:1.2vw">基于类 JEV 决策矩阵的市场群体行为力场系统</p>
-  <div style="margin-top:5.5vh" class="bigquote">看见价格形成之前的<br><span class="cyan">人群行为</span></div>
   <svg class="eye" viewBox="0 0 600 320" role="img" aria-label="蓝色星瞳与金色环绕轨道"><use href="#tianq-eye"/></svg>
+  <div class="introText">
+    <h1>天目 <span class="cyan">TianQ</span></h1>
+    <div class="sub">千机阁 · 天机演化之目</div>
+    <p>基于类 JEV 决策矩阵的市场群体行为力场系统</p>
+    <div class="bigquote">看见价格形成之前的<br><span class="cyan">人群行为</span></div>
+  </div>
   <div class="brandbar"><span>EmergentInc / 千机阁</span><span>天目 TianQ · Concept Deck</span></div>
 </section>
 
