@@ -52,6 +52,9 @@
       linear-gradient(var(--line),var(--line)) right bottom/18px .5px no-repeat,
       linear-gradient(var(--line),var(--line)) right bottom/.5px 18px no-repeat;
     opacity:.95}
+  .coverSlide{padding:0;background:#070D18}
+  .coverSlide::before,.coverSlide::after{display:none}
+  .coverImage{display:block;width:100%;height:100%;object-fit:cover}
   .noise{position:absolute;inset:-20%;opacity:.08;background-image:radial-gradient(rgba(15,23,42,.16) .45px,transparent .45px);background-size:6px 6px;transform:rotate(3deg);pointer-events:none;mask-image:linear-gradient(to bottom,transparent,#000 28%,#000 72%,transparent)}
   .eyebrow{color:var(--buy2);font-size:1vw;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:1.2vh}
   h1,h2,h3,p{margin:0}
@@ -83,6 +86,7 @@
   .fa{font-size:1.45vw;color:#94A3B8;font-family:"JetBrains Mono","Consolas",monospace}
   .topright{position:absolute;right:4.8%;top:5%;font-size:.78vw;color:#64748B;letter-spacing:.14em;font-family:"JetBrains Mono","Consolas",monospace}
   .brandbar{position:absolute;left:5.2%;right:5.2%;bottom:4.4%;display:flex;justify-content:space-between;align-items:center;font-size:.8vw;color:#64748B;letter-spacing:.05em;font-family:"JetBrains Mono","Consolas",monospace}
+  .pageNumber{font-variant-numeric:tabular-nums;white-space:nowrap}
   .progress{width:12vw;height:3px;background:#E2E8F0;border-radius:0;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--buy),var(--warn));width:0}
   .sectionTag{font-size:.82vw;color:#64748B;letter-spacing:.12em;font-family:"JetBrains Mono","Consolas",monospace}
   .halo{position:absolute;width:38vw;height:38vw;border-radius:50%;border:.5px solid rgba(14,116,144,.18);right:-8vw;top:-10vw;box-shadow:0 0 60px rgba(0,102,255,.05),inset 0 0 40px rgba(14,116,144,.03)}
@@ -134,7 +138,11 @@
 <body>
 <div class="deck" id="deck">
 
-<section class="slide active">
+<section class="slide active coverSlide" aria-label="天目 TianQ 首页">
+  <img class="coverImage" src="Imag_TianQ.png" alt="EmergentInc Universe · 千机阁 TianQ 项目概念图" />
+</section>
+
+<section class="slide">
   <div class="noise"></div><div class="halo"></div>
   <div class="eyebrow">QIANJI SERIES · MARKET INTELLIGENCE</div>
   <h1>天目 <span class="cyan">TianQ</span></h1>
@@ -348,6 +356,15 @@
 <div class="controls"><button id="prev">←</button><button id="next">→</button><button id="full">全屏</button></div>
 <script>
 const slides=[...document.querySelectorAll('.slide')];let idx=0;
+slides.forEach((slide,n)=>{
+  if(slide.classList.contains('coverSlide'))return;
+  const footer=slide.querySelector('.brandbar');
+  if(!footer)return;
+  const page=document.createElement('span');
+  page.className='pageNumber';
+  page.textContent=String(n).padStart(2,'0');
+  footer.append(page);
+});
 function show(i){idx=(i+slides.length)%slides.length;slides.forEach((s,n)=>s.classList.toggle('active',n===idx));document.getElementById('counter').textContent=String(idx+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');location.hash='s'+(idx+1)}
 function next(){show(idx+1)} function prev(){show(idx-1)}
 document.getElementById('next').onclick=next;document.getElementById('prev').onclick=prev;
