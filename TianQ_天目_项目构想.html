@@ -20,6 +20,7 @@
     --ink:#0F172A;
     --shadow:0 14px 40px rgba(15,23,42,.07);
     --shadow2:0 4px 18px rgba(15,23,42,.04);
+    --s7-decision-subject-size:3.5vw; /* s7“10,000 个具有不同状态的决策主体”字号，改这里 */
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI","PingFang SC","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;overflow:hidden}
@@ -68,7 +69,27 @@
   .bigquote{font-size:2.35vw;line-height:1.35;font-weight:800;max-width:76%;letter-spacing:-.03em;color:var(--ink)}
   .quote2{font-size:1.55vw;line-height:1.45;font-weight:700;color:var(--ink)}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:3vh}
+  .paradigmCompare{position:absolute;left:5.2%;right:5.2%;top:17%;bottom:13%;display:grid;grid-template-columns:1fr 1fr;gap:2vw}
+  .paradigmPanel{display:grid;grid-template-rows:auto auto 1fr auto;align-items:center;justify-items:center;gap:1.2vw;padding:2vw 1.5vw;background:rgba(255,255,255,.9);border:1px solid var(--line);box-shadow:var(--shadow2);text-align:center}
+  .paradigmPanel:last-child{border-color:#8CB5FF}
+  .paradigmName{font-size:2vw;font-weight:800;color:var(--ink)}
+  .paradigmMode{font-size:1.55vw;font-weight:700;color:var(--buy)}
+  .paradigmFlow{display:flex;align-items:center;justify-content:center;gap:.5vw;width:100%;white-space:nowrap}
+  .paradigmFlow strong{flex:1;min-width:0;padding:.8vw .25vw;border:1px solid var(--line);background:#F8FAFC;font-size:1.16vw;font-weight:800;color:var(--ink)}
+  .paradigmFlow span{font-size:1.4vw;color:#64748B}
+  .paradigmOutcome{width:100%;padding-top:1.2vw;border-top:1px solid var(--line);font-size:2.8vw;font-weight:900;color:#000}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.05vw;margin-top:2.8vh}
+  .s5Heading{font-size:2.3vw}
+  .s5Scope{margin-top:1vh;font-size:.84vw;color:var(--muted)}
+  .s5Flow{margin-top:3.2vh;gap:.55vw}
+  .s5Flow .node{min-height:16vh;background:#FFFFFF;font-size:1.18vw}
+  .s5Flow .fa{padding:0;font-size:1.4vw}
+  .s5Outcomes{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:3vh}
+  .s5Outcome{min-height:12vh;padding:1.15vw 1.35vw;border:1px solid var(--line);background:#FFFFFF;box-shadow:var(--shadow2)}
+  .s5Outcome strong{display:block;margin-top:.7vh;font-size:1.5vw;line-height:1.35;font-weight:900;color:#000}
+  .s5Final{margin-top:3vh;text-align:center;font-size:2.15vw;font-weight:900;color:var(--ink)}
+  .s5Sources{position:absolute;left:5.2%;bottom:8%;font-size:.65vw;color:var(--muted)}
+  .s5Sources a{color:inherit}
   .card{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(248,250,252,.97));border:.5px solid var(--line);border-radius:4px;padding:1.35vw;position:relative;overflow:hidden;box-shadow:var(--shadow2)}
   .card::before{content:"";position:absolute;left:12px;top:12px;width:14px;height:14px;border-left:.5px solid var(--line);border-top:.5px solid var(--line);opacity:.85}
   .card::after{content:"";position:absolute;right:12px;bottom:12px;width:14px;height:14px;border-right:.5px solid var(--line);border-bottom:.5px solid var(--line);opacity:.7}
@@ -77,6 +98,18 @@
   .formula{font-family:"JetBrains Mono","Consolas",monospace;background:#F8FAFC;border:.5px solid var(--line);border-radius:4px;padding:1.1vw 1.3vw;font-size:1.38vw;line-height:1.5;color:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
   .formula .op{color:var(--warn)}
   .formula .hi{color:var(--buy)}
+  .personaOutcome{display:block;margin-top:.6vh;font-size:var(--s7-decision-subject-size);font-weight:900;line-height:1.2}
+  .theoryProfile{display:grid;grid-template-columns:1fr 1fr;gap:1.5vw;margin-top:3.2vh}
+  .theoryStat{padding:1.5vw;border:1px solid var(--line);background:#FFFFFF;box-shadow:var(--shadow2)}
+  .theoryStat strong{display:block;font-size:3.2vw;line-height:1.1;color:var(--ink)}
+  .theoryStat span{display:block;margin-top:1vh;font-size:.95vw;color:var(--muted)}
+  .theoryWork{margin-top:2.3vh;padding:1.35vw 1.5vw;border:1px solid var(--line);background:#FFFFFF;box-shadow:var(--shadow2)}
+  .theoryWork strong{font-size:1.55vw;color:var(--ink)}
+  .theoryWork p{margin-top:.65vh;font-size:1vw}
+  .theoryEstimate{margin-top:1.1vh;font-size:.86vw;color:var(--muted)}
+  .theoryConclusion{margin-top:3vh;font-size:2.3vw;font-weight:900;color:var(--ink)}
+  .theorySources{position:absolute;left:5.2%;bottom:8%;font-size:.65vw;color:var(--muted)}
+  .theorySources a{color:inherit}
   .arrow{color:#94A3B8;padding:0 .4em}
   .flow{display:flex;align-items:center;justify-content:space-between;gap:1vw;margin-top:3vh}
   .node{flex:1;min-height:11.6vh;border:.5px solid var(--line);border-radius:3px;background:linear-gradient(180deg,#FCFDFE,#F8FAFC);padding:1.1vw;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.03vw;font-weight:700;position:relative;color:var(--ink);box-shadow:var(--shadow2)}
@@ -126,7 +159,7 @@
   .threeMode{display:grid;grid-template-columns:repeat(3,1fr);gap:1vw;margin-top:2.6vh}
   .mode{border:.5px solid var(--line);background:linear-gradient(180deg,#FCFDFE,#F8FAFC);border-radius:4px;padding:1.32vw;box-shadow:var(--shadow2)}
   .mode .num{font-size:.82vw;color:#64748B;font-family:"JetBrains Mono","Consolas",monospace}.mode h3{font-size:1.32vw;margin:.7vh 0}.mode p{font-size:.9vw}
-  .bigEyeWrap{position:absolute;right:5%;top:10%;width:46%;height:75%}.bigEyeWrap .eye{position:absolute;right:3%;top:20%;width:31vw;height:16.5vw}.bigEyeWrap .halo{right:-5vw;top:-4vw;width:40vw;height:40vw}
+  .bigEyeWrap{position:absolute;right:0;top:10%;width:46%;height:75%}.bigEyeWrap .eye{position:absolute;right:3%;top:20%;width:31vw;height:16.5vw}.bigEyeWrap .halo{right:-5vw;top:-4vw;width:40vw;height:40vw}
   .introSlide{padding:0;text-align:center;container-type:inline-size}
   .introSlide>.eyebrow{position:absolute;top:7%;left:5%;right:5%;margin:0;font-size:1.05cqw}
   .introSlide>.eye{left:50%;right:auto;top:33.333%;width:42%;height:40%;transform:translate(-50%,-50%)}
@@ -241,40 +274,33 @@
     <h1>天目 <span class="cyan">TianQ</span></h1>
     <div class="sub">千机阁 · 天机演化之目</div>
     <p>基于类 JEV 决策矩阵的市场群体行为力场系统</p>
-    <div class="bigquote">看见价格形成之前的<br><span class="cyan">人群行为</span></div>
+    <div class="bigquote">看见价格形成之前的 <span class="cyan">人群行为</span></div>
   </div>
   <div class="brandbar"><span>EmergentInc / 千机阁</span><span>天目 TianQ · Concept Deck</span></div>
 </section>
 
 <section class="slide">
   <div class="topright">01 / PARADIGM SHIFT</div>
-  <div class="eyebrow">新的模型范式</div>
-  <h2>大模型负责思考，<span class="cyan">类 JEV 模型负责决断</span></h2>
-  <div class="grid2">
-    <div class="card">
-      <div class="smallLabel">LLM</div>
-      <h3 style="margin-top:.8vh">生成式智能</h3>
-      <div class="flow" style="margin-top:2.3vh">
-        <div class="node">输入</div><div class="fa">→</div><div class="node">推理</div><div class="fa">→</div><div class="node">生成</div>
-      </div>
-      <p style="margin-top:2.1vh">开放答案、长推理链、面向复杂表达与知识工作。</p>
+  <div class="eyebrow">新的大模型范式变化——JEV范式</div>
+  <div class="paradigmCompare">
+    <div class="paradigmPanel">
+      <div class="paradigmName">原大模型</div>
+      <div class="paradigmMode">生成</div>
+      <div class="paradigmFlow"><strong>输入</strong><span>→</span><strong>推理</strong><span>→</span><strong>生成</strong></div>
+      <div class="paradigmOutcome">预测未来</div>
     </div>
-    <div class="card">
-      <div class="smallLabel">JEV-LIKE</div>
-      <h3 style="margin-top:.8vh">判定式智能</h3>
-      <div class="flow" style="margin-top:2.3vh">
-        <div class="node activeNode">状态</div><div class="fa">→</div><div class="node activeNode">候选决策</div><div class="fa">→</div><div class="node activeNode">概率</div>
-      </div>
-      <p style="margin-top:2.1vh">低延迟、高并发、稳定离散判断；更像“决策神经元”。</p>
+    <div class="paradigmPanel">
+      <div class="paradigmName">Jev模型</div>
+      <div class="paradigmMode">即时判定</div>
+      <div class="paradigmFlow"><strong>状态</strong><span>→</span><strong>候选决策</strong><span>→</span><strong>概率</strong></div>
+      <div class="paradigmOutcome">判定当下</div>
     </div>
   </div>
-  <div class="quote2" style="margin-top:3.3vh">当 AI 的任务从“回答问题”变成“<span class="cyan">瞬间做决定</span>”，新的应用空间被打开。</div>
   <div class="brandbar"><span>天目 TianQ</span><span class="sectionTag">PARADIGM</span></div>
 </section>
 
 <section class="slide">
   <div class="topright">02 / WHY MARKET</div>
-  <div class="eyebrow">为什么第一个想到交易</div>
   <h2>金融市场，本质上就是<span class="cyan">无数决策的叠加</span></h2>
   <div class="flow" style="margin-top:5.2vh">
     <div class="node">千万参与者<br><span class="muted">Buy / Hold / Sell</span></div>
@@ -285,48 +311,50 @@
     <div class="fa">→</div>
     <div class="node activeNode">价格变化</div>
   </div>
-  <div style="margin-top:6vh" class="bigquote">AI 能不能不再只猜涨跌，<br>而是去模拟那些<span class="cyan">正在共同形成涨跌的人</span>？</div>
+  <div style="margin-top:6vh" class="bigquote">AI预测未来很难<br>但如果可以看到当下每个人的 <strong style="font-size:2.8em;font-weight:900;color:#000">底牌</strong> 呢？</div>
   <div class="brandbar"><span>传统量化算轨迹 · 天目算合力</span><span class="sectionTag">FIRST PRINCIPLES</span></div>
 </section>
 
 <section class="slide">
-  <div class="topright">03 / THEORY</div>
-  <div class="eyebrow">理论根基</div>
-  <h2>所有复杂市场，最终都必须落回<span class="gold">买与卖</span></h2>
-  <div class="grid2" style="margin-top:3.4vh">
-    <div>
-      <div class="formula"><span class="hi">Buy Volume</span> <span class="op">&gt;</span> Sell Volume<br><span class="muted">⇒ Price ↑</span></div>
-      <div class="formula" style="margin-top:1.4vh"><span class="hi">Sell Volume</span> <span class="op">&gt;</span> Buy Volume<br><span class="muted">⇒ Price ↓</span></div>
-    </div>
-    <div>
-      <div class="formula"><span class="hi">Buy Volume</span><br>= Attention Capital × <span class="gold">Buy Probability</span></div>
-      <div class="formula" style="margin-top:1.4vh"><span class="hi">Sell Volume</span><br>= Sellable Capital × <span class="gold">Sell Probability</span></div>
-    </div>
+  <div class="topright">03 / THE ANALOGY</div>
+  <div class="eyebrow">现实中一种机构的玩法</div>
+  <h2 class="s5Heading">多数零售交易者会亏损，部分机构选择与他们做交易对手。</h2>
+  <div class="s5Scope">以零售 CFD / 外汇场景为参照 · 以下流程为模式示意</div>
+  <div class="flow s5Flow">
+    <div class="node">海选交易者</div><div class="fa">→</div>
+    <div class="node">筛选考核</div><div class="fa">→</div>
+    <div class="node">与多数人做对手盘</div><div class="fa">→</div>
+    <div class="node activeNode">提拔优秀选手</div>
   </div>
-  <div class="quote2" style="margin-top:3.4vh">过去最难算的，从来不是“买量和卖量影响价格”，而是：<br><span class="cyan">人在这一刻，到底有多大概率买或者卖？</span></div>
-  <div class="notes">退学股市涨跌理论 · TianQ 的物理地基</div>
+  <div class="s5Outcomes">
+    <div class="s5Outcome"><div class="smallLabel">多数 · 未对冲的对手盘</div><strong>多数人的净亏损，可能转化为做市商的利润。</strong></div>
+    <div class="s5Outcome"><div class="smallLabel">少数 · 优秀交易者</div><strong>少数表现优秀的交易者，被识别并吸纳。</strong></div>
+  </div>
+  <div class="s5Final">而 <span class="cyan">JEV</span> 的出现，让这种模拟成为可能。</div>
+  <div class="s5Sources">对手盘机制参考：<a href="https://www.esma.europa.eu/sites/default/files/library/esma35-36-794_qa_on_cfds_and_other_speculative_products_mifid.pdf">ESMA CFD Q&amp;A</a> · <a href="https://www.fca.org.uk/publication/correspondence/cfd-portfolio-letter-2022.pdf">FCA CFD 策略</a></div>
+  <div class="brandbar"><span>从“真实交易者分组”到“构造虚拟市场人口”</span><span class="sectionTag">INSIGHT</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">04 / THEORY</div>
+  <div class="eyebrow">传奇人物与理论来源</div>
+  <h2>“退学炒股”：从公开实盘走出的交易者</h2>
+  <div class="theoryProfile">
+    <div class="theoryStat"><strong>5 万元</strong><span>2017 年开启公开实盘</span></div>
+    <div class="theoryStat"><strong>千万级</strong><span>2019 年公开发帖称资金跨过千万</span></div>
+  </div>
+  <div class="theoryWork"><strong>《股市涨跌理论（初稿）》</strong><p>以买卖力量及参与者决策，解释股价形成的过程。</p></div>
+  <div class="theoryEstimate">目前资产有“10 亿+”的估计，但缺少可核验的公开资料。</div>
+  <div class="theoryConclusion">本项目底层逻辑<span class="cyan">以该理论为基础</span>。</div>
+  <div class="theorySources">资料：<a href="https://m.tgb.cn/a/1yXBXW7HP9l-2?type=new">2019 年公开帖整理</a> · <a href="https://m.tgb.cn/a/1NGDzVcu5Sq?type=hot">理论初稿转帖</a></div>
   <div class="brandbar"><span>Tuixue Market Dynamics</span><span class="sectionTag">THEORY</span></div>
 </section>
 
 <section class="slide">
-  <div class="topright">04 / THE ANALOGY</div>
-  <div class="eyebrow">现实类比</div>
-  <h2>如果你能看到牌桌上所有人的操作，会发生什么？</h2>
-  <div class="grid3">
-    <div class="card"><div class="hugeNumber cyan">1000</div><div class="smallLabel">SIM TRADERS</div><p style="margin-top:1vh">大量模拟盘交易者持续给出买卖决策。</p></div>
-    <div class="card"><div class="hugeNumber red">多数</div><div class="smallLabel">NEGATIVE EDGE</div><p style="margin-top:1vh">长期亏损群体，可构成“反向行为资产”。</p></div>
-    <div class="card"><div class="hugeNumber green">少数</div><div class="smallLabel">POSITIVE EDGE</div><p style="margin-top:1vh">稳定有效者，可构成“跟随行为资产”。</p></div>
-  </div>
-  <div style="margin-top:4.1vh" class="quote2">现实中，我们没有一万个交易者的后台。</div>
-  <div style="margin-top:1.3vh;font-size:3vw;font-weight:900;letter-spacing:-.04em">那就<span class="cyan">自己造一个</span>。</div>
-  <div class="brandbar"><span>从“观察真实后台”到“构造虚拟人口”</span><span class="sectionTag">INSIGHT</span></div>
-</section>
-
-<section class="slide">
   <div class="topright">05 / QIANJI MATRIX</div>
-  <div class="eyebrow">千机阁登场</div>
-  <h2>制造一个<span class="cyan">虚拟市场人口</span></h2>
-  <p style="margin-top:1.2vh">不是 10,000 个随机 Prompt，而是“少量交易主体原型 × 参数扰动 × 历史筛选”。</p>
+  <div class="eyebrow">从理论到市场人口</div>
+  <h2>从涨跌理论，衍生 <span class="cyan">10,000 个决策主体</span></h2>
+  <p style="margin-top:1.2vh">以《股市涨跌理论（初稿）》为基础，将影响买卖决策的人与状态，拆解成不同交易角色和参数组合。</p>
   <div class="persona">
     <div class="mini"><strong>趋势派</strong><div>顺势 · 中周期 · 确认后执行</div></div>
     <div class="mini"><strong>突破派</strong><div>价格新高 · 成交放大 · 快速入场</div></div>
@@ -337,99 +365,63 @@
     <div class="mini"><strong>套利盘</strong><div>价差驱动 · 低方向暴露</div></div>
     <div class="mini"><strong>做市盘</strong><div>库存约束 · 双边报价 · 被动成交</div></div>
   </div>
-  <div class="formula" style="margin-top:2.5vh;text-align:center">40 个原型 × 250 组参数 ≈ <span class="cyan">10,000 个异质决策主体</span></div>
+  <div class="formula" style="margin-top:2.5vh;text-align:center">交易角色 × 资金 / 持仓 / 风险 / 时机等参数<br>⇒<strong class="personaOutcome cyan">10,000 个具有不同状态的决策主体</strong></div>
   <div class="brandbar"><span>Qianji Matrix · 千机矩阵</span><span class="sectionTag">AGENT POPULATION</span></div>
 </section>
 
 <section class="slide">
   <div class="topright">06 / ARCHITECTURE</div>
   <div class="eyebrow">系统总架构</div>
-  <h2>天目 = <span class="cyan">观察层</span> × 千机 = <span class="violet">演化层</span> × 退学 = <span class="gold">动力学内核</span></h2>
-  <div class="stack">
-    <div class="layer app"><strong>天目雷达<br><span class="cyan">TianQ Radar</span></strong><span>实时买卖力场 · 群体拥挤度 · 潜在踩踏 · 主导群体 · 反向/跟随机会</span></div>
-    <div class="layer core"><strong>千机矩阵<br><span style="color:var(--violet)">Qianji Matrix</span></strong><span>千级 / 万级类 JEV 决策主体 · 低延迟并行输出 P(Buy), P(Hold), P(Sell)</span></div>
-    <div class="layer base"><strong>退学动力学<br><span class="gold">Tuixue Dynamics</span></strong><span>Population × Capital × Probability × Urgency ⇒ Market Behavioral Force</span></div>
+  <h2>从理论到<span class="cyan">交易决策</span></h2>
+  <div style="display:flex;flex-direction:column;gap:.45vh;margin-top:2vh">
+    <div class="layer base" style="display:block;text-align:center;padding:0.1vw">
+      <strong style="display:block;font-size:1.7vw">退学股市涨跌理论</strong>
+      <span style="font-size:1vw">理论根基</span>
+    </div>
+    <div style="text-align:center;color:#94A3B8;font-size:1.7vw;line-height:1">↓</div>
+    <div class="layer core" style="display:block;text-align:center;padding:0.1vw;width:80%;margin-inline:auto">
+      <strong style="display:block;font-size:1.7vw">千机矩阵</strong>
+      <span style="font-size:1vw">决策个体模拟</span>
+    </div>
+    <div style="text-align:center;color:#94A3B8;font-size:1.7vw;line-height:1">↓</div>
+    <div class="layer app" style="display:block;text-align:center;padding:0.1vw;width:60%;margin-inline:auto">
+      <strong style="display:block;font-size:1.7vw">天目</strong>
+      <span style="font-size:1vw">决策机构</span>
+    </div>
+    <div style="text-align:center;color:#94A3B8;font-size:1.7vw;line-height:1">↓</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;text-align:center">
+      <div class="layer" style="display:block;padding:1.15vw;border-top:2px solid var(--sell)"><strong style="font-size:2.7vw">与大部分均亏者 反做<span class="red"></span></strong></div>
+      <div class="layer" style="display:block;padding:1.15vw;border-top:2px solid var(--buy)"><strong style="font-size:2.7vw">与少部分均盈者 正做<span class="cyan"></span></strong></div>
+    </div>
   </div>
-  <div class="formula" style="margin-top:2vh;text-align:center"><span class="hi">Net Flow</span> = Buy Pressure <span class="op">−</span> Sell Pressure</div>
   <div class="brandbar"><span>EmergentInc / 千机阁 系列</span><span class="sectionTag">SYSTEM</span></div>
 </section>
 
 <section class="slide">
-  <div class="topright">07 / PERSONA ASSET</div>
-  <div class="eyebrow">真正的资产</div>
-  <h2>模型可以替换，<span class="cyan">交易人格才是资产</span></h2>
-  <div class="grid2">
-    <div class="card">
-      <h3>Decision Persona Asset</h3>
-      <div style="margin-top:1vh">
-        <span class="pill">交易逻辑</span><span class="pill">时间尺度</span><span class="pill">风险偏好</span><span class="pill">输入信息</span><span class="pill">行为阈值</span><span class="pill">持仓状态</span><span class="pill">资金规模</span><span class="pill">历史表现</span><span class="pill">市场适应度</span>
-      </div>
-      <p style="margin-top:2vh">每个角色是一份可复用、可训练、可校准的结构化资产，而不是一次性 Prompt。</p>
+  <div class="topright">07 / TRAIN → APPLY → ASSET</div>
+  <div class="eyebrow">训练 · 应用 · 沉淀</div>
+  <h2>从市场历史 到 <span class="cyan">决策人格资产</span></h2>
+  <div style="display:grid;grid-template-columns:1fr 3vw 1fr 3vw 1fr;gap:.6vw;align-items:stretch;margin-top:4vh">
+    <div class="card" style="min-height:31vh;border-top:3px solid var(--warn)">
+      <div class="gold" style="font-size:.95vw;font-weight:800">01 / 训练</div>
+      <h3 style="font-size:1.85vw;margin-top:1.2vh">训练人格资产</h3>
+      <div style="font-size:1.1vw;line-height:2.1;margin-top:2vh">角色与参数<br>↓<br>提示词特征<br>↓<br>历史数据校准</div>
     </div>
-    <div class="card">
-      <h3>Model Substrate</h3>
-      <div class="flow" style="margin-top:2.2vh">
-        <div class="node">JEV</div><div class="fa">→</div><div class="node">本地小模型</div><div class="fa">→</div><div class="node">蒸馏 / 自研</div>
-      </div>
-      <p style="margin-top:2vh">底座可以持续替换；人格资产与历史行为数据不断沉淀。</p>
+    <div style="align-self:center;text-align:center;font-size:2.2vw;color:#94A3B8">→</div>
+    <div class="card" style="min-height:31vh;border-top:3px solid var(--buy)">
+      <div class="cyan" style="font-size:.95vw;font-weight:800">02 / 应用</div>
+      <h3 style="font-size:1.85vw;margin-top:1.2vh">应用人格资产</h3>
+      <div style="font-size:1.1vw;line-height:2.1;margin-top:2vh">实时市场状态<br>↓<br>人格决策与群体合力<br>↓<br>反做均亏者 · 正做均盈者</div>
     </div>
-  </div>
-  <div class="quote2" style="margin-top:3vh">千机阁积累的不是 Prompt，而是<span class="cyan">一整个虚拟市场人口</span>。</div>
-  <div class="brandbar"><span>长期壁垒：人口资产 + 历史校准数据</span><span class="sectionTag">MOAT</span></div>
-</section>
-
-<section class="slide">
-  <div class="topright">08 / CALIBRATION</div>
-  <div class="eyebrow">历史数据如何训练“众生”</div>
-  <h2>不是复制真实的人，而是寻找<span class="cyan">能解释市场历史的虚拟人口分布</span></h2>
-  <div class="loop">
-    <div class="box">历史行情</div><div class="arr">→</div><div class="box">千机主体</div><div class="arr">→</div><div class="box">模拟行为</div><div class="arr">→</div>
-    <div class="box">虚拟买卖力</div><div class="arr">→</div><div class="box">对比真实市场</div><div class="arr">→</div><div class="box">调整人口权重</div><div class="arr">↺</div>
-  </div>
-  <div class="grid2" style="margin-top:3vh">
-    <div class="card"><h3>被优化的不是一个模型</h3><p>人口比例 · 决策阈值 · 资金权重 · 行为参数 · 有效性权重 · 市场状态切换。</p></div>
-    <div class="card"><h3>Harness 思维</h3><p>不预设谁正确，让历史样本筛选“哪些角色、哪些参数、在什么市场状态下能留下”。</p></div>
-  </div>
-  <div class="quote2" style="margin-top:2.8vh">让市场历史决定：<span class="cyan">哪些角色能够留下。</span></div>
-  <div class="brandbar"><span>Calibration ≠ Clone</span><span class="sectionTag">LEARNING LOOP</span></div>
-</section>
-
-<section class="slide">
-  <div class="topright">09 / TIANQ RADAR</div>
-  <div class="eyebrow">天目真正看到的东西</div>
-  <h2>不是“明天涨多少”，而是<span class="cyan">现在谁在推动市场</span></h2>
-  <div class="metricRow">
-    <div>
-      <div class="meters">
-        <div class="meter"><span>趋势群体</span><div class="track"><div class="fill" style="width:72%"></div></div><b class="green">72% Buy</b></div>
-        <div class="meter"><span>追涨群体</span><div class="track"><div class="fill" style="width:84%"></div></div><b class="green">84% Buy</b></div>
-        <div class="meter"><span>均值回归</span><div class="track"><div class="fill sell" style="width:68%"></div></div><b class="red">68% Sell</b></div>
-        <div class="meter"><span>机构执行</span><div class="track"><div class="fill" style="width:57%"></div></div><b class="green">57% Buy</b></div>
-        <div class="meter"><span>止损群体</span><div class="track"><div class="fill sell" style="width:76%"></div></div><b class="red">Sell Risk ↑</b></div>
-        <div class="meter"><span>套利群体</span><div class="track"><div class="fill neu" style="width:49%"></div></div><b class="muted">Neutral</b></div>
-      </div>
-      <div class="formula" style="margin-top:2.7vh;text-align:center">Market Force = <span class="green">Buy 63</span> / <span class="red">Sell 37</span></div>
-    </div>
-    <div class="radar">
-      <div class="sweep"></div>
-      <span class="dot" style="left:64%;top:27%"></span><span class="dot" style="left:36%;top:41%;background:var(--red);box-shadow:0 0 14px var(--red)"></span><span class="dot" style="left:70%;top:67%"></span><span class="dot" style="left:46%;top:70%;background:var(--violet);box-shadow:0 0 14px var(--violet)"></span>
+    <div style="align-self:center;text-align:center;font-size:2.2vw;color:#94A3B8">→</div>
+    <div class="card" style="min-height:31vh;border-top:3px solid var(--buy2)">
+      <div class="green" style="font-size:.95vw;font-weight:800">03 / 沉淀</div>
+      <h3 style="font-size:1.85vw;margin-top:1.2vh">持续训练人格资产</h3>
+      <div style="font-size:1.1vw;line-height:2.1;margin-top:2vh">应用结果回流<br>↓<br>资产沉淀与能力复利<br>↓<br>多元变现</div>
     </div>
   </div>
-  <div class="quote2" style="margin-top:2.7vh">天目不预言价格，<span class="cyan">它观察形成价格的力量。</span></div>
-  <div class="brandbar"><span>TianQ Radar · 实时市场行为场</span><span class="sectionTag">PRODUCT UI</span></div>
-</section>
-
-<section class="slide">
-  <div class="topright">10 / STRATEGY</div>
-  <div class="eyebrow">从“看见”到“交易”</div>
-  <h2>寻找的不是单一预测，而是<span class="cyan">结构性不对称</span></h2>
-  <div class="threeMode">
-    <div class="mode"><div class="num">01</div><h3>逆众生</h3><p>识别长期负收益主体的极端一致行为，把“拥挤错误”变成反向参考。</p></div>
-    <div class="mode"><div class="num">02</div><h3>随强者</h3><p>跟踪长期稳定有效主体的共同决策，把“持续有效”变成跟随参考。</p></div>
-    <div class="mode"><div class="num">03</div><h3>察合力</h3><p>不纠结谁对谁错，只观察整个市场此刻的行为力场与潜在订单压力。</p></div>
-  </div>
-  <div class="formula" style="margin-top:3.2vh;text-align:center">Signal = f(Population, Performance, Capital, Action, Market Regime)</div>
-  <div class="brandbar"><span>策略层可独立迭代 · 不锁死单一交易法</span><span class="sectionTag">EXECUTION</span></div>
+  <div class="formula" style="margin-top:3.2vh;text-align:center;font-size:1.15vw">应用反馈 ↺ 继续训练人格资产</div>
+  <div class="brandbar"><span>千机矩阵 × 天目</span><span class="sectionTag">LEARNING LOOP</span></div>
 </section>
 
 <section class="slide">
@@ -437,7 +429,7 @@
   <div class="bigEyeWrap"><div class="halo"></div><svg class="eye" viewBox="0 0 600 320" role="img" aria-label="蓝色星瞳与金色环绕轨道"><use href="#tianq-eye"/></svg></div>
   <div class="eyebrow">VISION</div>
   <h2 style="font-size:2.25vw;max-width:48%">传统量化，<br><span class="muted">在计算价格。</span></h2>
-  <div style="margin-top:4.5vh;font-size:3.6vw;font-weight:900;letter-spacing:-.045em;line-height:1.17;max-width:51%">天目，<br>在计算<span class="cyan">形成价格的众生</span>。</div>
+  <div style="margin-top:4.5vh;font-size:3.6vw;font-weight:900;letter-spacing:-.045em;line-height:1.17;max-width:70%">天目，在计算<br>价格背后的<span class="cyan" style="font-size:2.1em">众生相</span></div>
   <div style="margin-top:4vh;max-width:48%" class="quote2">千机阁内演化众生万态，<br>天目之下洞见群体合力。</div>
   <p style="margin-top:2.7vh;max-width:48%">看不见每一张底牌，但看得见整张牌桌正在倒向哪边。</p>
   <div class="brandbar"><span>天目 TianQ · 千机阁系列首个金融应用</span><span>END</span></div>
