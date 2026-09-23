@@ -92,8 +92,15 @@
   .halo{position:absolute;width:38vw;height:38vw;border-radius:50%;border:.5px solid rgba(14,116,144,.18);right:-8vw;top:-10vw;box-shadow:0 0 60px rgba(0,102,255,.05),inset 0 0 40px rgba(14,116,144,.03)}
   .halo::before,.halo::after{content:"";position:absolute;border-radius:50%;inset:10%;border:.5px dashed rgba(14,116,144,.2)}
   .halo::after{inset:23%;border-style:solid;opacity:.55}
-  .eye{width:28vw;height:13vw;border:1px solid rgba(0,102,255,.56);border-radius:70% 0 70% 0/70% 0 70% 0;transform:rotate(45deg);position:absolute;right:7vw;top:17vh;box-shadow:0 0 42px rgba(0,102,255,.05)}
-  .eye .iris{position:absolute;width:8.3vw;height:8.3vw;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0 6%,#C9E2FF 7% 14%,#0E7490 15% 38%,#0066FF 39% 60%,#0F172A 63%);top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 28px rgba(0,102,255,.16)}
+  .eye{width:28vw;height:15vw;position:absolute;right:7vw;top:17vh;overflow:visible;pointer-events:none}
+  .eye-core{animation:eyeBreathe 6s ease-in-out infinite}
+  .eye-orbits{transform-origin:300px 160px;animation:eyeOrbit 16s ease-in-out infinite alternate}
+  .eye-spark{animation:eyeSpark 4s ease-in-out infinite}
+  .eye-spark.late{animation-delay:-2s}
+  @keyframes eyeBreathe{0%,100%{opacity:.84}50%{opacity:1}}
+  @keyframes eyeOrbit{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+  @keyframes eyeSpark{0%,100%{opacity:.45}50%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){.eye-core,.eye-orbits,.eye-spark{animation:none}}
   .metricRow{display:grid;grid-template-columns:1.4fr .7fr;gap:1.5vw;margin-top:2vh}
   .meters{display:flex;flex-direction:column;gap:1vh}
   .meter{display:grid;grid-template-columns:7.5vw 1fr 4vw;gap:.8vw;align-items:center;font-size:.88vw;color:#475569;font-family:"JetBrains Mono","Consolas",monospace}.track{height:9px;border-radius:0;background:#E2E8F0;overflow:hidden;border:.5px solid var(--line)}.fill{height:100%;background:linear-gradient(90deg,var(--buy2),var(--buy))}.fill.sell{background:linear-gradient(90deg,var(--warn),var(--sell))}.fill.neu{background:linear-gradient(90deg,#94A3B8,#64748B)}
@@ -119,7 +126,7 @@
   .threeMode{display:grid;grid-template-columns:repeat(3,1fr);gap:1vw;margin-top:2.6vh}
   .mode{border:.5px solid var(--line);background:linear-gradient(180deg,#FCFDFE,#F8FAFC);border-radius:4px;padding:1.32vw;box-shadow:var(--shadow2)}
   .mode .num{font-size:.82vw;color:#64748B;font-family:"JetBrains Mono","Consolas",monospace}.mode h3{font-size:1.32vw;margin:.7vh 0}.mode p{font-size:.9vw}
-  .bigEyeWrap{position:absolute;right:5%;top:10%;width:46%;height:75%}.bigEyeWrap .eye{position:absolute;right:3%;top:20%;width:31vw;height:14vw}.bigEyeWrap .halo{right:-5vw;top:-4vw;width:40vw;height:40vw}
+  .bigEyeWrap{position:absolute;right:5%;top:10%;width:46%;height:75%}.bigEyeWrap .eye{position:absolute;right:3%;top:20%;width:31vw;height:16.5vw}.bigEyeWrap .halo{right:-5vw;top:-4vw;width:40vw;height:40vw}
   .notes{font-size:.82vw;color:#64748B;margin-top:1.2vh}
   .controls{position:fixed;right:2.2vw;bottom:2vh;display:flex;gap:.55vw;z-index:50}
   .controls button{border:.5px solid var(--line);background:#FFFFFF;color:#334155;border-radius:0;padding:.65em .9em;cursor:pointer;font-family:"JetBrains Mono","Consolas",monospace;box-shadow:var(--shadow2)}
@@ -132,10 +139,84 @@
     .deck{display:block;height:auto;background:#fff}
     .slide{display:block!important;width:100vw;height:56.25vw;page-break-after:always;border-radius:0;box-shadow:none;border:none}
     .controls,.counter,.help{display:none}
+    .eye-core,.eye-orbits,.eye-spark{animation:none}
   }
 </style>
 </head>
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;overflow:hidden">
+  <defs>
+    <radialGradient id="eye-aura">
+      <stop offset="0" stop-color="#030A17" stop-opacity=".98"/>
+      <stop offset=".38" stop-color="#061322" stop-opacity=".96"/>
+      <stop offset=".65" stop-color="#10283F" stop-opacity=".76"/>
+      <stop offset=".84" stop-color="#28435C" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#28435C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="eye-iris">
+      <stop offset="0" stop-color="#020712"/>
+      <stop offset=".38" stop-color="#040D24"/>
+      <stop offset=".53" stop-color="#174FAD"/>
+      <stop offset=".65" stop-color="#071F56"/>
+      <stop offset=".78" stop-color="#659EFF"/>
+      <stop offset=".87" stop-color="#D6E8FF"/>
+      <stop offset=".91" stop-color="#FFFFFF"/>
+      <stop offset=".94" stop-color="#E9CDA6"/>
+      <stop offset="1" stop-color="#83B9FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="eye-pupil" cx="42%" cy="38%">
+      <stop offset="0" stop-color="#102954"/>
+      <stop offset=".55" stop-color="#020815"/>
+      <stop offset="1" stop-color="#061735"/>
+    </radialGradient>
+    <linearGradient id="eye-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A98B5D" stop-opacity=".3"/>
+      <stop offset=".3" stop-color="#EBD2A8"/>
+      <stop offset=".52" stop-color="#B7CFFF" stop-opacity=".55"/>
+      <stop offset=".75" stop-color="#F3DBB4"/>
+      <stop offset="1" stop-color="#A98B5D" stop-opacity=".25"/>
+    </linearGradient>
+    <filter id="eye-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="4" result="bloom"/>
+      <feMerge><feMergeNode in="bloom"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <symbol id="tianq-eye" viewBox="0 0 600 320">
+      <ellipse cx="300" cy="160" rx="298" ry="154" fill="url(#eye-aura)"/>
+      <circle cx="300" cy="160" r="143" fill="none" stroke="#BDA779" stroke-opacity=".25" stroke-width=".8" stroke-dasharray="48 8 2 12"/>
+      <path d="M35 160 Q300 -30 565 160 Q300 350 35 160Z" fill="#061222" fill-opacity=".18" stroke="url(#eye-gold)" stroke-width="1.5"/>
+      <g class="eye-orbits" fill="none" stroke="url(#eye-gold)">
+        <ellipse cx="300" cy="160" rx="265" ry="62" transform="rotate(-9 300 160)" stroke-width="1.2"/>
+        <ellipse cx="300" cy="160" rx="265" ry="62" transform="rotate(9 300 160)" stroke-width=".8" opacity=".65"/>
+        <ellipse cx="300" cy="160" rx="221" ry="100" stroke-width=".7" stroke-dasharray="3 15" opacity=".5"/>
+        <g fill="#F6DEB5" stroke="none" filter="url(#eye-glow)">
+          <circle cx="43" cy="185" r="2.6"/><circle cx="557" cy="135" r="2.6"/>
+          <circle cx="167" cy="108" r="1.8"/><circle cx="433" cy="212" r="2"/>
+        </g>
+      </g>
+      <g class="eye-core">
+        <circle cx="300" cy="160" r="95" fill="url(#eye-iris)" filter="url(#eye-glow)"/>
+        <circle cx="300" cy="160" r="79" fill="none" stroke="#A9CDFF" stroke-width="1.2" opacity=".65"/>
+        <g fill="none" stroke="#91BEFF" stroke-width="1.5" opacity=".7" filter="url(#eye-glow)">
+          <path d="M300 84 C268 105 294 129 270 141 S256 190 281 216"/>
+          <path d="M362 115 C330 115 345 144 323 163 S351 203 327 231"/>
+          <path d="M231 162 C255 146 263 169 282 181 S310 214 302 239"/>
+        </g>
+        <circle cx="300" cy="160" r="38" fill="url(#eye-pupil)" stroke="#729EED" stroke-width="1"/>
+        <path d="M277 129 Q296 116 318 132" fill="none" stroke="#B8D6FF" stroke-width="2" opacity=".55" filter="url(#eye-glow)"/>
+      </g>
+      <g class="eye-spark" fill="#F6FAFF" stroke="#D5E6FF" stroke-width="1" filter="url(#eye-glow)">
+        <path d="M300 54V91 M282 73H318"/><circle cx="300" cy="73" r="3.5"/>
+        <path d="M286 145V169 M274 157H298"/><circle cx="286" cy="157" r="2.8"/>
+        <circle cx="352" cy="112" r="2.5"/>
+      </g>
+      <g class="eye-spark late" fill="#DAE9FF" stroke="#B9D6FF" stroke-width=".8" filter="url(#eye-glow)">
+        <path d="M300 237V263 M287 250H313"/><circle cx="300" cy="250" r="2.7"/>
+        <circle cx="244" cy="204" r="2"/><circle cx="331" cy="172" r="1.8"/>
+        <circle cx="203" cy="72" r="1.2"/><circle cx="409" cy="244" r="1.5"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
 <div class="deck" id="deck">
 
 <section class="slide active coverSlide" aria-label="天目 TianQ 首页">
@@ -149,7 +230,7 @@
   <div class="sub" style="margin-top:2vh;font-size:1.72vw;font-weight:700">千机阁 · 天机演化之目</div>
   <p style="margin-top:2.2vh;max-width:48%;font-size:1.2vw">基于类 JEV 决策矩阵的市场群体行为力场系统</p>
   <div style="margin-top:5.5vh" class="bigquote">看见价格形成之前的<br><span class="cyan">人群行为</span></div>
-  <div class="eye"><div class="iris"></div></div>
+  <svg class="eye" viewBox="0 0 600 320" role="img" aria-label="蓝色星瞳与金色环绕轨道"><use href="#tianq-eye"/></svg>
   <div class="brandbar"><span>EmergentInc / 千机阁</span><span>天目 TianQ · Concept Deck</span></div>
 </section>
 
@@ -341,7 +422,7 @@
 
 <section class="slide">
   <div class="noise"></div>
-  <div class="bigEyeWrap"><div class="halo"></div><div class="eye"><div class="iris"></div></div></div>
+  <div class="bigEyeWrap"><div class="halo"></div><svg class="eye" viewBox="0 0 600 320" role="img" aria-label="蓝色星瞳与金色环绕轨道"><use href="#tianq-eye"/></svg></div>
   <div class="eyebrow">VISION</div>
   <h2 style="font-size:2.25vw;max-width:48%">传统量化，<br><span class="muted">在计算价格。</span></h2>
   <div style="margin-top:4.5vh;font-size:3.6vw;font-weight:900;letter-spacing:-.045em;line-height:1.17;max-width:51%">天目，<br>在计算<span class="cyan">形成价格的众生</span>。</div>
