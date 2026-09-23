@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>天目 TianQ｜千机阁·天机演化之目</title>
+<style>
+  :root{
+    --bg:#F8FAFC;
+    --panel:#FCFDFE;
+    --panel2:#F1F5F9;
+    --text:#0F172A;
+    --muted:#64748B;
+    --line:#CBD5E1;
+    --line2:#E2E8F0;
+    --buy:#0066FF;
+    --buy2:#0E7490;
+    --sell:#DC2626;
+    --warn:#D97706;
+    --ink:#0F172A;
+    --shadow:0 14px 40px rgba(15,23,42,.07);
+    --shadow2:0 4px 18px rgba(15,23,42,.04);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI","PingFang SC","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;overflow:hidden}
+  body{height:100vh}
+  .deck{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:
+    radial-gradient(circle at 86% 12%,rgba(0,102,255,.055),transparent 24%),
+    radial-gradient(circle at 12% 84%,rgba(220,38,38,.032),transparent 24%),
+    linear-gradient(180deg,#F8FAFC,#F4F7FB 100%)}
+  .deck:before{content:"";position:absolute;inset:0;pointer-events:none;background:
+    linear-gradient(rgba(148,163,184,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(148,163,184,.12) 1px,transparent 1px);
+    background-size:28px 28px;opacity:.23}
+  .deck:after{content:"";position:absolute;left:2.5vw;top:2.5vh;right:2.5vw;bottom:2.5vh;pointer-events:none;border:0.5px solid rgba(203,213,225,.55)}
+  .slide{display:none;width:min(96vw,160vh);aspect-ratio:16/9;background:
+    linear-gradient(180deg,rgba(255,255,255,.92),rgba(248,250,252,.95) 100%);
+    border:none;border-radius:0;box-shadow:var(--shadow);padding:4.2% 5.2%;position:relative;overflow:hidden}
+  .slide.active{display:block}
+  .slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+    linear-gradient(rgba(226,232,240,.42) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(226,232,240,.42) 1px,transparent 1px);
+    background-size:32px 32px;opacity:.32}
+  .slide::after{content:"";position:absolute;left:24px;top:24px;right:24px;bottom:24px;pointer-events:none;
+    background:
+      linear-gradient(var(--line),var(--line)) left top/18px .5px no-repeat,
+      linear-gradient(var(--line),var(--line)) left top/.5px 18px no-repeat,
+      linear-gradient(var(--line),var(--line)) right top/18px .5px no-repeat,
+      linear-gradient(var(--line),var(--line)) right top/.5px 18px no-repeat,
+      linear-gradient(var(--line),var(--line)) left bottom/18px .5px no-repeat,
+      linear-gradient(var(--line),var(--line)) left bottom/.5px 18px no-repeat,
+      linear-gradient(var(--line),var(--line)) right bottom/18px .5px no-repeat,
+      linear-gradient(var(--line),var(--line)) right bottom/.5px 18px no-repeat;
+    opacity:.95}
+  .noise{position:absolute;inset:-20%;opacity:.08;background-image:radial-gradient(rgba(15,23,42,.16) .45px,transparent .45px);background-size:6px 6px;transform:rotate(3deg);pointer-events:none;mask-image:linear-gradient(to bottom,transparent,#000 28%,#000 72%,transparent)}
+  .eyebrow{color:var(--buy2);font-size:1vw;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:1.2vh}
+  h1,h2,h3,p{margin:0}
+  h1{font-size:4.2vw;line-height:1.06;letter-spacing:-.04em;color:var(--ink)}
+  h2{font-size:2.46vw;line-height:1.14;letter-spacing:-.02em;color:var(--ink)}
+  h3{font-size:1.34vw;line-height:1.25;color:var(--ink)}
+  p{font-size:1vw;line-height:1.72;color:var(--muted)}
+  .sub{font-size:1.26vw;color:#334155;line-height:1.5}
+  .muted{color:var(--muted)}
+  .cyan{color:var(--buy)} .gold{color:var(--warn)} .green{color:var(--buy2)} .red{color:var(--sell)} .violet{color:#475569}
+  .bigquote{font-size:2.35vw;line-height:1.35;font-weight:800;max-width:76%;letter-spacing:-.03em;color:var(--ink)}
+  .quote2{font-size:1.55vw;line-height:1.45;font-weight:700;color:var(--ink)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:3vh}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.05vw;margin-top:2.8vh}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(248,250,252,.97));border:.5px solid var(--line);border-radius:4px;padding:1.35vw;position:relative;overflow:hidden;box-shadow:var(--shadow2)}
+  .card::before{content:"";position:absolute;left:12px;top:12px;width:14px;height:14px;border-left:.5px solid var(--line);border-top:.5px solid var(--line);opacity:.85}
+  .card::after{content:"";position:absolute;right:12px;bottom:12px;width:14px;height:14px;border-right:.5px solid var(--line);border-bottom:.5px solid var(--line);opacity:.7}
+  .card h3{margin-bottom:.8vh}.card p{font-size:.92vw}
+  .pill{display:inline-block;padding:.38em .72em;border-radius:2px;border:.5px solid var(--line);background:#F8FAFC;color:#334155;font-size:.79vw;margin:.18em .25em .18em 0;font-family:"JetBrains Mono","Consolas","SFMono-Regular",monospace}
+  .formula{font-family:"JetBrains Mono","Consolas",monospace;background:#F8FAFC;border:.5px solid var(--line);border-radius:4px;padding:1.1vw 1.3vw;font-size:1.38vw;line-height:1.5;color:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
+  .formula .op{color:var(--warn)}
+  .formula .hi{color:var(--buy)}
+  .arrow{color:#94A3B8;padding:0 .4em}
+  .flow{display:flex;align-items:center;justify-content:space-between;gap:1vw;margin-top:3vh}
+  .node{flex:1;min-height:11.6vh;border:.5px solid var(--line);border-radius:3px;background:linear-gradient(180deg,#FCFDFE,#F8FAFC);padding:1.1vw;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.03vw;font-weight:700;position:relative;color:var(--ink);box-shadow:var(--shadow2)}
+  .node::before{content:"";position:absolute;left:8px;top:8px;width:10px;height:10px;border-left:.5px solid #94A3B8;border-top:.5px solid #94A3B8}
+  .node::after{content:"";position:absolute;right:8px;bottom:8px;width:10px;height:10px;border-right:.5px solid #94A3B8;border-bottom:.5px solid #94A3B8}
+  .node.activeNode{border-color:#8CB5FF;box-shadow:0 0 0 1px rgba(0,102,255,.06),0 8px 24px rgba(0,102,255,.08)}
+  .fa{font-size:1.45vw;color:#94A3B8;font-family:"JetBrains Mono","Consolas",monospace}
+  .topright{position:absolute;right:4.8%;top:5%;font-size:.78vw;color:#64748B;letter-spacing:.14em;font-family:"JetBrains Mono","Consolas",monospace}
+  .brandbar{position:absolute;left:5.2%;right:5.2%;bottom:4.4%;display:flex;justify-content:space-between;align-items:center;font-size:.8vw;color:#64748B;letter-spacing:.05em;font-family:"JetBrains Mono","Consolas",monospace}
+  .progress{width:12vw;height:3px;background:#E2E8F0;border-radius:0;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--buy),var(--warn));width:0}
+  .sectionTag{font-size:.82vw;color:#64748B;letter-spacing:.12em;font-family:"JetBrains Mono","Consolas",monospace}
+  .halo{position:absolute;width:38vw;height:38vw;border-radius:50%;border:.5px solid rgba(14,116,144,.18);right:-8vw;top:-10vw;box-shadow:0 0 60px rgba(0,102,255,.05),inset 0 0 40px rgba(14,116,144,.03)}
+  .halo::before,.halo::after{content:"";position:absolute;border-radius:50%;inset:10%;border:.5px dashed rgba(14,116,144,.2)}
+  .halo::after{inset:23%;border-style:solid;opacity:.55}
+  .eye{width:28vw;height:13vw;border:1px solid rgba(0,102,255,.56);border-radius:70% 0 70% 0/70% 0 70% 0;transform:rotate(45deg);position:absolute;right:7vw;top:17vh;box-shadow:0 0 42px rgba(0,102,255,.05)}
+  .eye .iris{position:absolute;width:8.3vw;height:8.3vw;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0 6%,#C9E2FF 7% 14%,#0E7490 15% 38%,#0066FF 39% 60%,#0F172A 63%);top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 28px rgba(0,102,255,.16)}
+  .metricRow{display:grid;grid-template-columns:1.4fr .7fr;gap:1.5vw;margin-top:2vh}
+  .meters{display:flex;flex-direction:column;gap:1vh}
+  .meter{display:grid;grid-template-columns:7.5vw 1fr 4vw;gap:.8vw;align-items:center;font-size:.88vw;color:#475569;font-family:"JetBrains Mono","Consolas",monospace}.track{height:9px;border-radius:0;background:#E2E8F0;overflow:hidden;border:.5px solid var(--line)}.fill{height:100%;background:linear-gradient(90deg,var(--buy2),var(--buy))}.fill.sell{background:linear-gradient(90deg,var(--warn),var(--sell))}.fill.neu{background:linear-gradient(90deg,#94A3B8,#64748B)}
+  .radar{height:28vh;border:.5px solid var(--line);border-radius:0;background:radial-gradient(circle at center,rgba(0,102,255,.06),rgba(248,250,252,.98) 57%);position:relative;overflow:hidden;box-shadow:var(--shadow2)}
+  .radar:before,.radar:after{content:"";position:absolute;left:50%;top:50%;width:36%;height:36%;border:.5px solid rgba(0,102,255,.22);border-radius:50%;transform:translate(-50%,-50%)}
+  .radar:after{width:70%;height:70%}
+  .radar .cross1,.radar .cross2{position:absolute;background:rgba(100,116,139,.32)}
+  .radar .cross1{left:50%;top:8%;bottom:8%;width:.5px}.radar .cross2{top:50%;left:8%;right:8%;height:.5px}
+  .sweep{position:absolute;width:48%;height:2px;background:linear-gradient(90deg,transparent,var(--buy));left:50%;top:50%;transform-origin:left center;animation:sweep 6s linear infinite;box-shadow:0 0 12px rgba(0,102,255,.18)}
+  @keyframes sweep{to{transform:rotate(360deg)}}
+  .dot{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--buy);box-shadow:0 0 10px rgba(0,102,255,.25)}
+  .stack{display:grid;grid-template-rows:auto auto auto;gap:1vh;margin-top:2.1vh}
+  .layer{border:.5px solid var(--line);border-radius:4px;padding:1.02vw 1.15vw;background:linear-gradient(180deg,#FCFDFE,#F8FAFC);display:grid;grid-template-columns:11vw 1fr;gap:1.2vw;align-items:center;box-shadow:var(--shadow2)}
+  .layer strong{font-size:1.08vw}.layer span{font-size:.88vw;color:#475569}.layer.app{border-left:2px solid var(--buy)}.layer.core{border-left:2px solid var(--buy2)}.layer.base{border-left:2px solid var(--warn)}
+  .persona{display:grid;grid-template-columns:repeat(4,1fr);gap:.9vw;margin-top:2.1vh}
+  .mini{border:.5px solid var(--line);background:linear-gradient(180deg,#FCFDFE,#F8FAFC);border-radius:3px;padding:1vw;box-shadow:var(--shadow2)}
+  .mini strong{font-size:.98vw}.mini div{font-size:.78vw;color:#64748B;margin-top:.45vh}
+  .loop{display:grid;grid-template-columns:repeat(6,1fr);gap:.45vw;align-items:center;margin-top:2.5vh}
+  .loop .box{padding:1vw .68vw;border:.5px solid var(--line);border-radius:3px;background:linear-gradient(180deg,#FCFDFE,#F8FAFC);text-align:center;font-size:.82vw;line-height:1.4;box-shadow:var(--shadow2)}
+  .loop .arr{text-align:center;color:#94A3B8;font-size:1.3vw;font-family:"JetBrains Mono","Consolas",monospace}
+  .hugeNumber{font-size:4.5vw;font-weight:900;letter-spacing:-.05em;color:var(--ink)}
+  .smallLabel{font-size:.8vw;color:#64748B;letter-spacing:.12em;text-transform:uppercase;font-family:"JetBrains Mono","Consolas",monospace}
+  .threeMode{display:grid;grid-template-columns:repeat(3,1fr);gap:1vw;margin-top:2.6vh}
+  .mode{border:.5px solid var(--line);background:linear-gradient(180deg,#FCFDFE,#F8FAFC);border-radius:4px;padding:1.32vw;box-shadow:var(--shadow2)}
+  .mode .num{font-size:.82vw;color:#64748B;font-family:"JetBrains Mono","Consolas",monospace}.mode h3{font-size:1.32vw;margin:.7vh 0}.mode p{font-size:.9vw}
+  .bigEyeWrap{position:absolute;right:5%;top:10%;width:46%;height:75%}.bigEyeWrap .eye{position:absolute;right:3%;top:20%;width:31vw;height:14vw}.bigEyeWrap .halo{right:-5vw;top:-4vw;width:40vw;height:40vw}
+  .notes{font-size:.82vw;color:#64748B;margin-top:1.2vh}
+  .controls{position:fixed;right:2.2vw;bottom:2vh;display:flex;gap:.55vw;z-index:50}
+  .controls button{border:.5px solid var(--line);background:#FFFFFF;color:#334155;border-radius:0;padding:.65em .9em;cursor:pointer;font-family:"JetBrains Mono","Consolas",monospace;box-shadow:var(--shadow2)}
+  .controls button:hover{border-color:var(--buy);color:var(--buy)}
+  .counter{position:fixed;left:2.2vw;bottom:2.2vh;color:#64748B;font-size:13px;z-index:50;font-family:"JetBrains Mono","Consolas",monospace}
+  .help{position:fixed;top:2vh;right:2.2vw;color:#64748B;font-size:12px;z-index:50;font-family:"JetBrains Mono","Consolas",monospace}
+  @media (max-aspect-ratio: 1/1){.slide{width:98vw;height:auto}.help{display:none}}
+  @media print{
+    html,body{overflow:visible;background:#fff}
+    .deck{display:block;height:auto;background:#fff}
+    .slide{display:block!important;width:100vw;height:56.25vw;page-break-after:always;border-radius:0;box-shadow:none;border:none}
+    .controls,.counter,.help{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<section class="slide active">
+  <div class="noise"></div><div class="halo"></div>
+  <div class="eyebrow">QIANJI SERIES · MARKET INTELLIGENCE</div>
+  <h1>天目 <span class="cyan">TianQ</span></h1>
+  <div class="sub" style="margin-top:2vh;font-size:1.72vw;font-weight:700">千机阁 · 天机演化之目</div>
+  <p style="margin-top:2.2vh;max-width:48%;font-size:1.2vw">基于类 JEV 决策矩阵的市场群体行为力场系统</p>
+  <div style="margin-top:5.5vh" class="bigquote">看见价格形成之前的<br><span class="cyan">人群行为</span></div>
+  <div class="eye"><div class="iris"></div></div>
+  <div class="brandbar"><span>EmergentInc / 千机阁</span><span>天目 TianQ · Concept Deck</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">01 / PARADIGM SHIFT</div>
+  <div class="eyebrow">新的模型范式</div>
+  <h2>大模型负责思考，<span class="cyan">类 JEV 模型负责决断</span></h2>
+  <div class="grid2">
+    <div class="card">
+      <div class="smallLabel">LLM</div>
+      <h3 style="margin-top:.8vh">生成式智能</h3>
+      <div class="flow" style="margin-top:2.3vh">
+        <div class="node">输入</div><div class="fa">→</div><div class="node">推理</div><div class="fa">→</div><div class="node">生成</div>
+      </div>
+      <p style="margin-top:2.1vh">开放答案、长推理链、面向复杂表达与知识工作。</p>
+    </div>
+    <div class="card">
+      <div class="smallLabel">JEV-LIKE</div>
+      <h3 style="margin-top:.8vh">判定式智能</h3>
+      <div class="flow" style="margin-top:2.3vh">
+        <div class="node activeNode">状态</div><div class="fa">→</div><div class="node activeNode">候选决策</div><div class="fa">→</div><div class="node activeNode">概率</div>
+      </div>
+      <p style="margin-top:2.1vh">低延迟、高并发、稳定离散判断；更像“决策神经元”。</p>
+    </div>
+  </div>
+  <div class="quote2" style="margin-top:3.3vh">当 AI 的任务从“回答问题”变成“<span class="cyan">瞬间做决定</span>”，新的应用空间被打开。</div>
+  <div class="brandbar"><span>天目 TianQ</span><span class="sectionTag">PARADIGM</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">02 / WHY MARKET</div>
+  <div class="eyebrow">为什么第一个想到交易</div>
+  <h2>金融市场，本质上就是<span class="cyan">无数决策的叠加</span></h2>
+  <div class="flow" style="margin-top:5.2vh">
+    <div class="node">千万参与者<br><span class="muted">Buy / Hold / Sell</span></div>
+    <div class="fa">→</div>
+    <div class="node">订单流</div>
+    <div class="fa">→</div>
+    <div class="node">买卖力量失衡</div>
+    <div class="fa">→</div>
+    <div class="node activeNode">价格变化</div>
+  </div>
+  <div style="margin-top:6vh" class="bigquote">AI 能不能不再只猜涨跌，<br>而是去模拟那些<span class="cyan">正在共同形成涨跌的人</span>？</div>
+  <div class="brandbar"><span>传统量化算轨迹 · 天目算合力</span><span class="sectionTag">FIRST PRINCIPLES</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">03 / THEORY</div>
+  <div class="eyebrow">理论根基</div>
+  <h2>所有复杂市场，最终都必须落回<span class="gold">买与卖</span></h2>
+  <div class="grid2" style="margin-top:3.4vh">
+    <div>
+      <div class="formula"><span class="hi">Buy Volume</span> <span class="op">&gt;</span> Sell Volume<br><span class="muted">⇒ Price ↑</span></div>
+      <div class="formula" style="margin-top:1.4vh"><span class="hi">Sell Volume</span> <span class="op">&gt;</span> Buy Volume<br><span class="muted">⇒ Price ↓</span></div>
+    </div>
+    <div>
+      <div class="formula"><span class="hi">Buy Volume</span><br>= Attention Capital × <span class="gold">Buy Probability</span></div>
+      <div class="formula" style="margin-top:1.4vh"><span class="hi">Sell Volume</span><br>= Sellable Capital × <span class="gold">Sell Probability</span></div>
+    </div>
+  </div>
+  <div class="quote2" style="margin-top:3.4vh">过去最难算的，从来不是“买量和卖量影响价格”，而是：<br><span class="cyan">人在这一刻，到底有多大概率买或者卖？</span></div>
+  <div class="notes">退学股市涨跌理论 · TianQ 的物理地基</div>
+  <div class="brandbar"><span>Tuixue Market Dynamics</span><span class="sectionTag">THEORY</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">04 / THE ANALOGY</div>
+  <div class="eyebrow">现实类比</div>
+  <h2>如果你能看到牌桌上所有人的操作，会发生什么？</h2>
+  <div class="grid3">
+    <div class="card"><div class="hugeNumber cyan">1000</div><div class="smallLabel">SIM TRADERS</div><p style="margin-top:1vh">大量模拟盘交易者持续给出买卖决策。</p></div>
+    <div class="card"><div class="hugeNumber red">多数</div><div class="smallLabel">NEGATIVE EDGE</div><p style="margin-top:1vh">长期亏损群体，可构成“反向行为资产”。</p></div>
+    <div class="card"><div class="hugeNumber green">少数</div><div class="smallLabel">POSITIVE EDGE</div><p style="margin-top:1vh">稳定有效者，可构成“跟随行为资产”。</p></div>
+  </div>
+  <div style="margin-top:4.1vh" class="quote2">现实中，我们没有一万个交易者的后台。</div>
+  <div style="margin-top:1.3vh;font-size:3vw;font-weight:900;letter-spacing:-.04em">那就<span class="cyan">自己造一个</span>。</div>
+  <div class="brandbar"><span>从“观察真实后台”到“构造虚拟人口”</span><span class="sectionTag">INSIGHT</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">05 / QIANJI MATRIX</div>
+  <div class="eyebrow">千机阁登场</div>
+  <h2>制造一个<span class="cyan">虚拟市场人口</span></h2>
+  <p style="margin-top:1.2vh">不是 10,000 个随机 Prompt，而是“少量交易主体原型 × 参数扰动 × 历史筛选”。</p>
+  <div class="persona">
+    <div class="mini"><strong>趋势派</strong><div>顺势 · 中周期 · 确认后执行</div></div>
+    <div class="mini"><strong>突破派</strong><div>价格新高 · 成交放大 · 快速入场</div></div>
+    <div class="mini"><strong>均值回归</strong><div>偏离过大 · 逆势 · 等待回归</div></div>
+    <div class="mini"><strong>追涨散户</strong><div>热度驱动 · FOMO · 高弹性</div></div>
+    <div class="mini"><strong>止损盘</strong><div>阈值触发 · 被迫行动 · 高紧迫</div></div>
+    <div class="mini"><strong>机构执行</strong><div>大资金 · 分批 · 流动性约束</div></div>
+    <div class="mini"><strong>套利盘</strong><div>价差驱动 · 低方向暴露</div></div>
+    <div class="mini"><strong>做市盘</strong><div>库存约束 · 双边报价 · 被动成交</div></div>
+  </div>
+  <div class="formula" style="margin-top:2.5vh;text-align:center">40 个原型 × 250 组参数 ≈ <span class="cyan">10,000 个异质决策主体</span></div>
+  <div class="brandbar"><span>Qianji Matrix · 千机矩阵</span><span class="sectionTag">AGENT POPULATION</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">06 / ARCHITECTURE</div>
+  <div class="eyebrow">系统总架构</div>
+  <h2>天目 = <span class="cyan">观察层</span> × 千机 = <span class="violet">演化层</span> × 退学 = <span class="gold">动力学内核</span></h2>
+  <div class="stack">
+    <div class="layer app"><strong>天目雷达<br><span class="cyan">TianQ Radar</span></strong><span>实时买卖力场 · 群体拥挤度 · 潜在踩踏 · 主导群体 · 反向/跟随机会</span></div>
+    <div class="layer core"><strong>千机矩阵<br><span style="color:var(--violet)">Qianji Matrix</span></strong><span>千级 / 万级类 JEV 决策主体 · 低延迟并行输出 P(Buy), P(Hold), P(Sell)</span></div>
+    <div class="layer base"><strong>退学动力学<br><span class="gold">Tuixue Dynamics</span></strong><span>Population × Capital × Probability × Urgency ⇒ Market Behavioral Force</span></div>
+  </div>
+  <div class="formula" style="margin-top:2vh;text-align:center"><span class="hi">Net Flow</span> = Buy Pressure <span class="op">−</span> Sell Pressure</div>
+  <div class="brandbar"><span>EmergentInc / 千机阁 系列</span><span class="sectionTag">SYSTEM</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">07 / PERSONA ASSET</div>
+  <div class="eyebrow">真正的资产</div>
+  <h2>模型可以替换，<span class="cyan">交易人格才是资产</span></h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Decision Persona Asset</h3>
+      <div style="margin-top:1vh">
+        <span class="pill">交易逻辑</span><span class="pill">时间尺度</span><span class="pill">风险偏好</span><span class="pill">输入信息</span><span class="pill">行为阈值</span><span class="pill">持仓状态</span><span class="pill">资金规模</span><span class="pill">历史表现</span><span class="pill">市场适应度</span>
+      </div>
+      <p style="margin-top:2vh">每个角色是一份可复用、可训练、可校准的结构化资产，而不是一次性 Prompt。</p>
+    </div>
+    <div class="card">
+      <h3>Model Substrate</h3>
+      <div class="flow" style="margin-top:2.2vh">
+        <div class="node">JEV</div><div class="fa">→</div><div class="node">本地小模型</div><div class="fa">→</div><div class="node">蒸馏 / 自研</div>
+      </div>
+      <p style="margin-top:2vh">底座可以持续替换；人格资产与历史行为数据不断沉淀。</p>
+    </div>
+  </div>
+  <div class="quote2" style="margin-top:3vh">千机阁积累的不是 Prompt，而是<span class="cyan">一整个虚拟市场人口</span>。</div>
+  <div class="brandbar"><span>长期壁垒：人口资产 + 历史校准数据</span><span class="sectionTag">MOAT</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">08 / CALIBRATION</div>
+  <div class="eyebrow">历史数据如何训练“众生”</div>
+  <h2>不是复制真实的人，而是寻找<span class="cyan">能解释市场历史的虚拟人口分布</span></h2>
+  <div class="loop">
+    <div class="box">历史行情</div><div class="arr">→</div><div class="box">千机主体</div><div class="arr">→</div><div class="box">模拟行为</div><div class="arr">→</div>
+    <div class="box">虚拟买卖力</div><div class="arr">→</div><div class="box">对比真实市场</div><div class="arr">→</div><div class="box">调整人口权重</div><div class="arr">↺</div>
+  </div>
+  <div class="grid2" style="margin-top:3vh">
+    <div class="card"><h3>被优化的不是一个模型</h3><p>人口比例 · 决策阈值 · 资金权重 · 行为参数 · 有效性权重 · 市场状态切换。</p></div>
+    <div class="card"><h3>Harness 思维</h3><p>不预设谁正确，让历史样本筛选“哪些角色、哪些参数、在什么市场状态下能留下”。</p></div>
+  </div>
+  <div class="quote2" style="margin-top:2.8vh">让市场历史决定：<span class="cyan">哪些角色能够留下。</span></div>
+  <div class="brandbar"><span>Calibration ≠ Clone</span><span class="sectionTag">LEARNING LOOP</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">09 / TIANQ RADAR</div>
+  <div class="eyebrow">天目真正看到的东西</div>
+  <h2>不是“明天涨多少”，而是<span class="cyan">现在谁在推动市场</span></h2>
+  <div class="metricRow">
+    <div>
+      <div class="meters">
+        <div class="meter"><span>趋势群体</span><div class="track"><div class="fill" style="width:72%"></div></div><b class="green">72% Buy</b></div>
+        <div class="meter"><span>追涨群体</span><div class="track"><div class="fill" style="width:84%"></div></div><b class="green">84% Buy</b></div>
+        <div class="meter"><span>均值回归</span><div class="track"><div class="fill sell" style="width:68%"></div></div><b class="red">68% Sell</b></div>
+        <div class="meter"><span>机构执行</span><div class="track"><div class="fill" style="width:57%"></div></div><b class="green">57% Buy</b></div>
+        <div class="meter"><span>止损群体</span><div class="track"><div class="fill sell" style="width:76%"></div></div><b class="red">Sell Risk ↑</b></div>
+        <div class="meter"><span>套利群体</span><div class="track"><div class="fill neu" style="width:49%"></div></div><b class="muted">Neutral</b></div>
+      </div>
+      <div class="formula" style="margin-top:2.7vh;text-align:center">Market Force = <span class="green">Buy 63</span> / <span class="red">Sell 37</span></div>
+    </div>
+    <div class="radar">
+      <div class="sweep"></div>
+      <span class="dot" style="left:64%;top:27%"></span><span class="dot" style="left:36%;top:41%;background:var(--red);box-shadow:0 0 14px var(--red)"></span><span class="dot" style="left:70%;top:67%"></span><span class="dot" style="left:46%;top:70%;background:var(--violet);box-shadow:0 0 14px var(--violet)"></span>
+    </div>
+  </div>
+  <div class="quote2" style="margin-top:2.7vh">天目不预言价格，<span class="cyan">它观察形成价格的力量。</span></div>
+  <div class="brandbar"><span>TianQ Radar · 实时市场行为场</span><span class="sectionTag">PRODUCT UI</span></div>
+</section>
+
+<section class="slide">
+  <div class="topright">10 / STRATEGY</div>
+  <div class="eyebrow">从“看见”到“交易”</div>
+  <h2>寻找的不是单一预测，而是<span class="cyan">结构性不对称</span></h2>
+  <div class="threeMode">
+    <div class="mode"><div class="num">01</div><h3>逆众生</h3><p>识别长期负收益主体的极端一致行为，把“拥挤错误”变成反向参考。</p></div>
+    <div class="mode"><div class="num">02</div><h3>随强者</h3><p>跟踪长期稳定有效主体的共同决策，把“持续有效”变成跟随参考。</p></div>
+    <div class="mode"><div class="num">03</div><h3>察合力</h3><p>不纠结谁对谁错，只观察整个市场此刻的行为力场与潜在订单压力。</p></div>
+  </div>
+  <div class="formula" style="margin-top:3.2vh;text-align:center">Signal = f(Population, Performance, Capital, Action, Market Regime)</div>
+  <div class="brandbar"><span>策略层可独立迭代 · 不锁死单一交易法</span><span class="sectionTag">EXECUTION</span></div>
+</section>
+
+<section class="slide">
+  <div class="noise"></div>
+  <div class="bigEyeWrap"><div class="halo"></div><div class="eye"><div class="iris"></div></div></div>
+  <div class="eyebrow">VISION</div>
+  <h2 style="font-size:2.25vw;max-width:48%">传统量化，<br><span class="muted">在计算价格。</span></h2>
+  <div style="margin-top:4.5vh;font-size:3.6vw;font-weight:900;letter-spacing:-.045em;line-height:1.17;max-width:51%">天目，<br>在计算<span class="cyan">形成价格的众生</span>。</div>
+  <div style="margin-top:4vh;max-width:48%" class="quote2">千机阁内演化众生万态，<br>天目之下洞见群体合力。</div>
+  <p style="margin-top:2.7vh;max-width:48%">看不见每一张底牌，但看得见整张牌桌正在倒向哪边。</p>
+  <div class="brandbar"><span>天目 TianQ · 千机阁系列首个金融应用</span><span>END</span></div>
+</section>
+
+</div>
+<div class="help">← → / Space / 鼠标滚轮翻页 · F 全屏 · P 打印</div>
+<div class="counter" id="counter"></div>
+<div class="controls"><button id="prev">←</button><button id="next">→</button><button id="full">全屏</button></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let idx=0;
+function show(i){idx=(i+slides.length)%slides.length;slides.forEach((s,n)=>s.classList.toggle('active',n===idx));document.getElementById('counter').textContent=String(idx+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');location.hash='s'+(idx+1)}
+function next(){show(idx+1)} function prev(){show(idx-1)}
+document.getElementById('next').onclick=next;document.getElementById('prev').onclick=prev;
+let lastWheelAt=0;
+document.addEventListener('wheel',e=>{
+  if(e.ctrlKey||!e.deltaY)return;
+  e.preventDefault();
+  const now=Date.now();
+  if(now-lastWheelAt<450)return;
+  lastWheelAt=now;
+  e.deltaY>0?next():prev();
+},{passive:false});
+document.getElementById('full').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}if(e.key.toLowerCase()==='f')document.getElementById('full').click();if(e.key.toLowerCase()==='p')window.print();if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1)});
+const m=location.hash.match(/s(\d+)/);if(m) idx=Math.max(0,Math.min(slides.length-1,Number(m[1])-1));show(idx);
+</script>
+</body>
+</html>
